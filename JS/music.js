@@ -161,5 +161,10 @@ document.getElementById("btnFinish").addEventListener("click", () => {
   
   sendToDB();
   // Optionally redirect to a confirmation page
-  window.location.href = "./hotel.HTML";
+  goToPage("hotel.html");
 });
+
+
+function goToPage(page) {
+  window.location.href = `/WeddingInviteApp/${page}`;
+}

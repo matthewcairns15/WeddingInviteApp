@@ -92,5 +92,11 @@ document.getElementById("submitFood").addEventListener("click", () => {
   alert("Food choices saved!");
 
   // Optionally redirect to a confirmation page
-  window.location.href = "./music.html";
+  goToPage("music.html");
+
+
 });
+
+function goToPage(page) {
+  window.location.href = `/WeddingInviteApp/${page}`;
+}

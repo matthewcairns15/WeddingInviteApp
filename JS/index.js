@@ -106,12 +106,16 @@ function submitRSVP() {
   // If all are not attending → redirect to 'Not attending' page
   const allNotAttending = rsvp.invitees.every(inv => inv.attending === false);
 
+  // usage
   if (allNotAttending) {
-    window.location.href = "./not-attending.html";
+    goToPage("not-attending.html");
   } else {
-    // Otherwise, go to food selection page
-    window.location.href = "./food.html";
+    goToPage("food.html");
   }
+}
+
+function goToPage(page) {
+  window.location.href = `/WeddingInviteApp/${page}`;
 }
 
 async function get_invite_code()
