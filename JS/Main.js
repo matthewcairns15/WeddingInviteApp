@@ -21,6 +21,7 @@ class WeddingRSVP {
   constructor(inviteCode) {
     this.inviteCode = inviteCode;
     this.invitees = [];
+    this.rsvp_id = null;
   }
 
   addInvitee(name) {
@@ -34,13 +35,23 @@ class WeddingRSVP {
   }
 }
 
-// ===== Create RSVP instance =====
-const rsvp = new WeddingRSVP("ABC1234");
+//Main()
 
-// Add invitees (replace with actual names)
-rsvp.addInvitee("John");
-rsvp.addInvitee("Jane");
-rsvp.addInvitee("Emily");
+let rsvp;
+
+(async function main() {
+  const inviteCode = await get_invite_code();
+  if (!inviteCode) return;
+
+  rsvp = new WeddingRSVP(inviteCode);
+  await get_invitee_names(rsvp);
+
+  renderInvitees();
+})();
+
+  // Attach submit button handler
+  document.getElementById("submitRSVP").addEventListener("click", submitRSVP);
+
 
 // ===== Render Invitees Dynamically =====
 function renderInvitees() {
@@ -92,10 +103,6 @@ function submitRSVP() {
 
   saveRSVP();
 
-
-
-
-
   // If all are not attending → redirect to 'Not attending' page
   const allNotAttending = rsvp.invitees.every(inv => inv.attending === false);
 
@@ -107,10 +114,58 @@ function submitRSVP() {
   }
 }
 
-// ===== Initialize Page =====
-window.addEventListener("DOMContentLoaded", () => {
-  renderInvitees();
+async function get_invite_code()
+{
+  const params = new URLSearchParams(window.location.search);
+  const inviteCode = params.get("code");
 
-  // Attach submit button handler
-  document.getElementById("submitRSVP").addEventListener("click", submitRSVP);
-});
+  if (!inviteCode) {
+    // show error / redirect
+    alert("Invalid invite code");
+    return;
+  }
+  return inviteCode;
+}
+
+async function get_invitee_names(rsvp) {
+  const supabaseUrl = "https://wkdgilnczddiyibwmlyz.supabase.co";
+  const supabaseAnonKey  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrZGdpbG5jemRkaXlpYndtbHl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg4MTc2NjIsImV4cCI6MjA4NDM5MzY2Mn0.pL05Ugw56GiOKROtu0Az4te0qwc0SD6D5bZJVd8YmHQ";
+
+  const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
+
+
+  try {
+    // Get RSVP ID from invite code
+    const { data: rsvpData, error: rsvpError } = await supabaseClient
+      .from('RSVP')
+      .select('id')
+      .eq('invite_code', rsvp.inviteCode)
+      .single(); // get a single row
+
+    if (rsvpError || !rsvpData) {
+      alert("Invalid RSVP code");
+      return;
+    }
+
+    rsvp.rsvp_id = rsvpData.id; // save RSVP ID in object
+
+    // Fetch guest names
+    const { data: guests, error: guestError } = await supabaseClient
+      .from('Wedding_Guest_Options')
+      .select('Guest_Name')
+      .eq('rsvp_id', rsvp.rsvp_id);
+
+    if (guestError) throw guestError;
+
+    guests.forEach(row => {
+      if (row.Guest_Name) rsvp.addInvitee(row.Guest_Name);
+    });
+
+    console.log(`Guests for RSVP ${rsvp.inviteCode}:`, guests);
+    return guests;
+
+  } catch (err) {
+    console.error('Error fetching guest names:', err.message);
+    return [];
+  }
+}

@@ -52,86 +52,98 @@ document.getElementById("submitMusic").addEventListener("click", () => {
 
 
 async function sendToDB() {
+
   const supabaseUrl = "https://wkdgilnczddiyibwmlyz.supabase.co";
   const supabaseAnonKey  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrZGdpbG5jemRkaXlpYndtbHl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg4MTc2NjIsImV4cCI6MjA4NDM5MzY2Mn0.pL05Ugw56GiOKROtu0Az4te0qwc0SD6D5bZJVd8YmHQ";
 
   const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
 
   const rsvp = JSON.parse(localStorage.getItem("weddingRSVP"));
-  if (!rsvp || !rsvp.inviteCode) {
-    alert("RSVP or invite code missing!");
+
+  if (!rsvp || !rsvp.rsvp_id) {
+    alert("RSVP ID missing — cannot save");
     return;
   }
 
-  // 1️⃣ Upsert RSVP
-  const { data: upsertData, error: upsertError } = await supabaseClient
-    .from("RSVP")
-    .upsert(
-      { invite_code: rsvp.inviteCode },
-      { onConflict: "invite_code" }
-    );
+  const rsvpId = rsvp.rsvp_id;
 
-  if (upsertError) {
-    console.error("RSVP upsert error:", upsertError);
-    alert("Failed to save RSVP");
+  /* ===========================
+     1️⃣ UPDATE GUEST OPTIONS
+     =========================== */
+
+  // Delete existing guests for this RSVP
+  const { error: deleteGuestsError } = await supabaseClient
+    .from("Wedding_Guest_Options")
+    .delete()
+    .eq("rsvp_id", rsvpId);
+
+  if (deleteGuestsError) {
+    console.error("Delete guests error:", deleteGuestsError);
+    alert("Failed to update guests");
     return;
   }
 
-  // 2️⃣ Fetch row to get id
-  const { data: rsvpRow, error: fetchError } = await supabaseClient
-    .from("RSVP")
-    .select()
-    .eq("invite_code", rsvp.inviteCode)
-    .single();
-
-  if (fetchError) {
-    console.error("RSVP fetch error:", fetchError);
-    alert("Failed to get RSVP row ID");
-    return;
-  }
-
-  // 3️⃣ Insert guests
+  // Reinsert guests
   const guestsPayload = rsvp.invitees.map(inv => ({
-    rsvp_id: rsvpRow.id,
+    rsvp_id: rsvpId,
     Guest_Name: inv.name,
     Guest_Attending: inv.attending,
     Guest_Food_Choice: inv.food_choice,
     Guest_Drink_Choice: inv.drink_choice,
-    Guest_Dietry_Restrictions: inv.dietary_restrictions,
-    Guest_Allergies: inv.allergies,
+    Guest_Dietry_Restrictions: inv.dietry_Restrictions,
+    Guest_Allergies: inv.Allergies,
     Guest_Notes: inv.notes
   }));
 
-  const { error: guestsError } = await supabaseClient
-    .from("Wedding_Guests_Options")
-    .insert(guestsPayload);
+  if (guestsPayload.length > 0) {
+    const { error: insertGuestsError } = await supabaseClient
+      .from("Wedding_Guest_Options")
+      .insert(guestsPayload);
 
-  if (guestsError) {
-    console.error("Guests error:", guestsError);
-    alert("Failed to save guests");
-    return;
-  }
-
-  // 4️⃣ Insert music requests
-  if (Array.isArray(rsvp.song_requests) && rsvp.song_requests.length > 0) {
-    const musicPayload = rsvp.song_requests.map(song => ({
-      rsvp_id: rsvpRow.id,
-      song_name: song
-    }));
-
-    const { error: musicError } = await supabaseClient
-      .from("Music_Requests")
-      .insert(musicPayload);
-
-    if (musicError) {
-      console.error("Music error:", musicError);
-      alert("Failed to save music requests");
+    if (insertGuestsError) {
+      console.error("Insert guests error:", insertGuestsError);
+      alert("Failed to save guests");
       return;
     }
   }
 
-  console.log("✅ RSVP fully saved!");
+  /* ===========================
+     2️⃣ UPDATE MUSIC REQUESTS
+     =========================== */
+
+  // Delete existing music for this RSVP
+  const { error: deleteMusicError } = await supabaseClient
+    .from("Music_Requests")
+    .delete()
+    .eq("rsvp_id", rsvpId);
+
+  if (deleteMusicError) {
+    console.error("Delete music error:", deleteMusicError);
+    alert("Failed to update music");
+    return;
+  }
+
+  // Reinsert music
+  if (Array.isArray(rsvp.song_requests) && rsvp.song_requests.length > 0) {
+    const musicPayload = rsvp.song_requests.map(song => ({
+      rsvp_id: rsvpId,
+      songs: song
+    }));
+
+    const { error: insertMusicError } = await supabaseClient
+      .from("Music_Requests")
+      .insert(musicPayload);
+
+    if (insertMusicError) {
+      console.error("Insert music error:", insertMusicError);
+      alert("Failed to save music");
+      return;
+    }
+  }
+
+  console.log("✅ RSVP updated successfully!");
 }
+
 
 
 
