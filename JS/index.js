@@ -107,10 +107,10 @@ function submitRSVP() {
   const allNotAttending = rsvp.invitees.every(inv => inv.attending === false);
 
   if (allNotAttending) {
-    window.location.href = "not-attending.html";
+    window.location.href = "./not-attending.html";
   } else {
     // Otherwise, go to food selection page
-    window.location.href = "food.html";
+    window.location.href = "./food.html";
   }
 }
 
