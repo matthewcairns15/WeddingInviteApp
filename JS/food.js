@@ -92,5 +92,5 @@ document.getElementById("submitFood").addEventListener("click", () => {
   alert("Food choices saved!");
 
   // Optionally redirect to a confirmation page
-  window.location.href = "../music.html";
+  window.location.href = "./music.html";
 });
