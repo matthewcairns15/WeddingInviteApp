@@ -161,5 +161,5 @@ document.getElementById("btnFinish").addEventListener("click", () => {
   
   sendToDB();
   // Optionally redirect to a confirmation page
-  window.location.href = "./hotel.HTML";
+  window.location.href = "../hotel.HTML";
 });
