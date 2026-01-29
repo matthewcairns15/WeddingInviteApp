@@ -90,8 +90,8 @@ async function sendToDB() {
     Guest_Attending: inv.attending,
     Guest_Food_Choice: inv.food_choice,
     Guest_Drink_Choice: inv.drink_choice,
-    Guest_Dietry_Restrictions: inv.dietry_Restrictions,
-    Guest_Allergies: inv.Allergies,
+    Guest_Dietry_Restrictions: inv.dietary_restrictions,
+    Guest_Allergies: inv.allergies,
     Guest_Notes: inv.notes
   }));
 

@@ -1,16 +1,18 @@
 // ===== Invitee class =====
 class Invitee {
-  constructor(name) {
+   constructor(name) {
     this.name = name;
     this.attending = null;
     this.food_choice = null;
     this.drink_choice = null;
-    this.dietry_Restrictions = null;
-    this.Allergies = null;
+    this.dietary_restrictions = null;  // fixed spelling
+    this.allergies = null;             // lowercase for consistency
     this.Music = null;
     this.notes = null;
   }
 
+
+  
   setAttending(value) {
     this.attending = value;
   }
