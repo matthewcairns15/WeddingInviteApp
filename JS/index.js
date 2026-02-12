@@ -157,15 +157,19 @@ async function get_invitee_names(rsvp) {
     // Fetch guest names
     const { data: guests, error: guestError } = await supabaseClient
       .from('Wedding_Guest_Options')
-      .select('Guest_Name', 'IsChild')
+      .select('Guest_Name, IsChild')
       .eq('rsvp_id', rsvp.rsvp_id)
 
     if (guestError) throw guestError;
 
     guests.forEach(row => {
-      if (row.Guest_Name) rsvp.addInvitee(row.Guest_Name);
-      if (row.isChild) rsvp.addInvitee(row.isChild);
+      if (!row.Guest_Name) return;
+
+      const invitee = new Invitee(row.Guest_Name);
+      invitee.isChild = row.IsChild === true;   // IMPORTANT
+      rsvp.invitees.push(invitee);
     });
+
 
     console.log(`Guests for RSVP ${rsvp.inviteCode}:`, guests);
     return guests;
