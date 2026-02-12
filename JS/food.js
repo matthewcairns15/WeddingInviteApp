@@ -28,17 +28,24 @@ attendingInvitees.forEach((invitee, index) => {
     const select = document.createElement("select");
     select.innerHTML = `<option value="">--Select a menu--</option>` +
       childMenuOptions.map(opt => `<option value="${opt}" ${invitee.food_choice === opt ? "selected" : ""}>${opt}</option>`).join("");
+   
+    // Update RSVP object on change
+    select.addEventListener("change", (e) => {
+    invitee.food_choice = e.target.value;
+  });
   }
   else {
      const select = document.createElement("select");
     select.innerHTML = `<option value="">--Select a menu--</option>` +
       menuOptions.map(opt => `<option value="${opt}" ${invitee.food_choice === opt ? "selected" : ""}>${opt}</option>`).join("");
-  }
 
-  // Update RSVP object on change
-  select.addEventListener("change", (e) => {
+    // Update RSVP object on change
+    select.addEventListener("change", (e) => {
     invitee.food_choice = e.target.value;
   });
+  }
+
+
 
   div.appendChild(label);
   div.appendChild(select);
