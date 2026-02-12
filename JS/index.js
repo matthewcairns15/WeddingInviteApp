@@ -56,7 +56,7 @@ let rsvp;
 
 // ===== Render Invitees Dynamically =====
 function renderInvitees() {
-  const container = document.getElementById("invite-card");
+  const container = document.getElementById("invitee-names");
   //container.innerHTML = ""; // clear container
 
   rsvp.invitees.forEach((invitee, index) => {
