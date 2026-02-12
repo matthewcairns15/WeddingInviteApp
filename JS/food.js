@@ -11,6 +11,10 @@ const container = document.getElementById("foodContainer");
 const menuOptions = ["Chicken", "Beef", "Vegetarian"];
 const drinkOptions = ["Wine", "Beer", "Juice"];
 
+const childMenuOptions = ["Chicken nuggets","pizza","fishfingers"];
+const childDrinkOptions = ["apple juice", "Orange Juice", "fizzy drink"];
+
+
 
 // Dynamically create dropdown for each attending invitee
 attendingInvitees.forEach((invitee, index) => {
@@ -20,9 +24,16 @@ attendingInvitees.forEach((invitee, index) => {
   const label = document.createElement("label");
   label.textContent = invitee.name;
 
-  const select = document.createElement("select");
-  select.innerHTML = `<option value="">--Select a menu--</option>` +
-    menuOptions.map(opt => `<option value="${opt}" ${invitee.food_choice === opt ? "selected" : ""}>${opt}</option>`).join("");
+  if (invitees.isChild) {
+    const select = document.createElement("select");
+    select.innerHTML = `<option value="">--Select a menu--</option>` +
+      childMenuOptions.map(opt => `<option value="${opt}" ${invitee.food_choice === opt ? "selected" : ""}>${opt}</option>`).join("");
+  }
+  else {
+     const select = document.createElement("select");
+    select.innerHTML = `<option value="">--Select a menu--</option>` +
+      menuOptions.map(opt => `<option value="${opt}" ${invitee.food_choice === opt ? "selected" : ""}>${opt}</option>`).join("");
+  }
 
   // Update RSVP object on change
   select.addEventListener("change", (e) => {
@@ -37,14 +48,27 @@ attendingInvitees.forEach((invitee, index) => {
   drinkLabel.textContent = "Drink choice";
   div.appendChild(drinkLabel);
 
-  const drinkSelect = document.createElement("select");
-  drinkSelect.innerHTML =
-    `<option value="">-- Select drink --</option>` +
-    drinkOptions.map(opt =>
-      `<option value="${opt}" ${invitee.drink_choice === opt ? "selected" : ""}>${opt}</option>`
-    ).join("");
-  drinkSelect.onchange = e => invitee.drink_choice = e.target.value;
-  div.appendChild(drinkSelect);
+  if (invitees.isChild) {
+
+    const drinkSelect = document.createElement("select");
+    drinkSelect.innerHTML =
+      `<option value="">-- Select drink --</option>` +
+      childDrinkOptions.map(opt =>
+        `<option value="${opt}" ${invitee.drink_choice === opt ? "selected" : ""}>${opt}</option>`
+      ).join("");
+    drinkSelect.onchange = e => invitee.drink_choice = e.target.value;
+    div.appendChild(drinkSelect);
+  }
+  else{
+        const drinkSelect = document.createElement("select");
+    drinkSelect.innerHTML =
+      `<option value="">-- Select drink --</option>` +
+      drinkOptions.map(opt =>
+        `<option value="${opt}" ${invitee.drink_choice === opt ? "selected" : ""}>${opt}</option>`
+      ).join("");
+    drinkSelect.onchange = e => invitee.drink_choice = e.target.value;
+    div.appendChild(drinkSelect);
+  }
 
   // Dietary restrictions input
   const dietaryLabel = document.createElement("label");

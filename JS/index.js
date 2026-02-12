@@ -9,10 +9,9 @@ class Invitee {
     this.allergies = null;             // lowercase for consistency
     this.Music = null;
     this.notes = null;
+    this.isChild = false;
   }
 
-
-  
   setAttending(value) {
     this.attending = value;
   }
@@ -158,13 +157,14 @@ async function get_invitee_names(rsvp) {
     // Fetch guest names
     const { data: guests, error: guestError } = await supabaseClient
       .from('Wedding_Guest_Options')
-      .select('Guest_Name')
-      .eq('rsvp_id', rsvp.rsvp_id);
+      .select('Guest_Name', 'IsChild')
+      .eq('rsvp_id', rsvp.rsvp_id)
 
     if (guestError) throw guestError;
 
     guests.forEach(row => {
       if (row.Guest_Name) rsvp.addInvitee(row.Guest_Name);
+      if (row.isChild) rsvp.addInvitee(row.isChild);
     });
 
     console.log(`Guests for RSVP ${rsvp.inviteCode}:`, guests);

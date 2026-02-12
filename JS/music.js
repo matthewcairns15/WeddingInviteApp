@@ -144,26 +144,16 @@ async function sendToDB() {
   console.log("✅ RSVP updated successfully!");
 }
 
-
-
-
-
 document.getElementById("btnSubmitDB").addEventListener("click", () => {
   sendToDB();
-
-
 });
 
 document.getElementById("btnFinish").addEventListener("click", () => {
-    //TODO
     //Push options to the Database
-
-  
   sendToDB();
   // Optionally redirect to a confirmation page
   goToPage("hotel.html");
 });
-
 
 function goToPage(page) {
   window.location.href = `/WeddingInviteApp/${page}`;
