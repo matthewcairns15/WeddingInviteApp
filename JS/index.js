@@ -157,7 +157,7 @@ async function get_invitee_names(rsvp) {
     // Fetch guest names
     const { data: guests, error: guestError } = await supabaseClient
       .from('Wedding_Guest_Options')
-      .select('Guest_Name, IsChild')
+      .select('Guest_Name, Is_Child')
       .eq('rsvp_id', rsvp.rsvp_id)
 
     if (guestError) throw guestError;
