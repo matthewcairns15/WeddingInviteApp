@@ -124,8 +124,6 @@ document.getElementById("submitFood").addEventListener("click", () => {
 
   // Optionally redirect to a confirmation page
   goToPage("music.html");
-
-
 });
 
 function goToPage(page) {

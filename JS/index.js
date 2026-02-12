@@ -166,7 +166,7 @@ async function get_invitee_names(rsvp) {
       if (!row.Guest_Name) return;
 
       const invitee = new Invitee(row.Guest_Name);
-      invitee.isChild = row.isChild === true;   // IMPORTANT
+      invitee.isChild = row.Is_Child === true;   // IMPORTANT
       rsvp.invitees.push(invitee);
     });
 
