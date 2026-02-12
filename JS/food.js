@@ -24,7 +24,7 @@ attendingInvitees.forEach((invitee, index) => {
   const label = document.createElement("label");
   label.textContent = invitee.name;
 
-  if (invitees.isChild) {
+  if (div.isChild) {
     const select = document.createElement("select");
     select.innerHTML = `<option value="">--Select a menu--</option>` +
       childMenuOptions.map(opt => `<option value="${opt}" ${invitee.food_choice === opt ? "selected" : ""}>${opt}</option>`).join("");
@@ -48,7 +48,7 @@ attendingInvitees.forEach((invitee, index) => {
   drinkLabel.textContent = "Drink choice";
   div.appendChild(drinkLabel);
 
-  if (invitees.isChild) {
+  if (div.isChild) {
 
     const drinkSelect = document.createElement("select");
     drinkSelect.innerHTML =
