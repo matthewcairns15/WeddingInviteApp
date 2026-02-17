@@ -3,7 +3,9 @@ class Invitee {
    constructor(name) {
     this.name = name;
     this.attending = null;
-    this.food_choice = null;
+    this.starter_choice = null;
+    this.main_choice = null;
+    this.dessert_choice = null;
     this.drink_choice = null;
     this.dietary_restrictions = null;  // fixed spelling
     this.allergies = null;             // lowercase for consistency

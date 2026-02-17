@@ -12,14 +12,33 @@ const rsvpDisplay = document.getElementById("rsvpDisplay");
 
 // Function to update display
 function updateDisplay() {
-  rsvpDisplay.textContent = JSON.stringify(
-    {
-      ...savedRSVP,
-      song_requests: savedRSVP.song_requests.join(", ")
-    },
-    null,
-    2
-  );
+ if (!savedRSVP) return;
+
+  let displayText = `RSVP: \n\n`;
+
+  if (Array.isArray(savedRSVP.invitees) && savedRSVP.invitees.length > 0) {
+    displayText += "Guests:\n";
+    savedRSVP.invitees.forEach((guest, index) => {
+      displayText += `  ${index + 1}. ${guest.name}: \n - Attending: ${guest.attending ? "Yes" : "No"}\n`;
+      if (guest.starter_choice) displayText += `     Food: ${guest.starter_choice}\n`;
+      if (guest.main_choice) displayText += `     Food: ${guest.main_choice}\n`;
+      if (guest.dessert_choice) displayText += `     Food: ${guest.dessert_choice}\n`;
+      if (guest.drink_choice) displayText += `     Drink: ${guest.drink_choice}\n`;
+      if (guest.dietary_restrictions) displayText += `     Dietary: ${guest.dietary_restrictions}\n`;
+      if (guest.allergies) displayText += `     Allergies: ${guest.allergies}\n`;
+      if (guest.notes) displayText += `     Notes: ${guest.notes}\n\n`;
+    });
+    displayText += "\n";
+  }
+
+  if (Array.isArray(savedRSVP.song_requests) && savedRSVP.song_requests.length > 0) {
+    displayText += "Song Requests:\n";
+    savedRSVP.song_requests.forEach((song, index) => {
+      displayText += `  ${index + 1}. ${song}\n`;
+    });
+  }
+
+  rsvpDisplay.textContent = displayText;
 }
 
 // Initialize display
@@ -88,7 +107,9 @@ async function sendToDB() {
     rsvp_id: rsvpId,
     Guest_Name: inv.name,
     Guest_Attending: inv.attending,
-    Guest_Food_Choice: inv.food_choice,
+    Guest_Starter_Choice: inv.starter_choice,
+    Guest_Main_Choice: inv.main_choice,
+    Guest_Dessert_Choice: inv.dessert_choice,
     Guest_Drink_Choice: inv.drink_choice,
     Guest_Dietry_Restrictions: inv.dietary_restrictions,
     Guest_Allergies: inv.allergies,
@@ -143,10 +164,6 @@ async function sendToDB() {
 
   console.log("✅ RSVP updated successfully!");
 }
-
-document.getElementById("btnSubmitDB").addEventListener("click", () => {
-  sendToDB();
-});
 
 document.getElementById("btnFinish").addEventListener("click", () => {
     //Push options to the Database

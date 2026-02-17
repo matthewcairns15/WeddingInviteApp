@@ -8,12 +8,20 @@ const attendingInvitees = savedRSVP.invitees.filter(inv => inv.attending === tru
 const container = document.getElementById("foodContainer");
 
 // Menu options
-const menuOptions = ["Chicken", "Beef", "Vegetarian"];
+const starterOptions = ["Soup", "salad", "katsu"];
+const mainOptions = ["Chicken", "Beef", "Vegetarian"];
+const dessertOptions = ["cake", "ice cream", "mouse"];
 const drinkOptions = ["Wine", "Beer", "Juice"];
 
-const childMenuOptions = ["Chicken nuggets","pizza","fishfingers"];
+const childStarterOptions = ["child soup","child salad","child fish"];
+const childMainOptions = ["Chicken nuggets","pizza","fishfingers"];
+const childDessertOptions = ["cake","ice lolly","pickNMix"];
+
+
 const childDrinkOptions = ["apple juice", "Orange Juice", "fizzy drink"];
 
+
+container.innerHTML = ""; // clear container
 
 
 // Dynamically create dropdown for each attending invitee
@@ -21,38 +29,103 @@ attendingInvitees.forEach((invitee, index) => {
   const div = document.createElement("div");
   div.classList.add("invitee");
 
-  const label = document.createElement("label");
+  const label = document.createElement("label-name");
   label.textContent = invitee.name;
 
- let select = document.createElement("select");
-
-if (invitee.isChild) {
-  select.innerHTML =
-    `<option value="">--Select a menu--</option>` +
-    childMenuOptions.map(opt =>
-      `<option value="${opt}" ${invitee.food_choice === opt ? "selected" : ""}>${opt}</option>`
-    ).join("");
-} else {
-  select.innerHTML =
-    `<option value="">--Select a menu--</option>` +
-    menuOptions.map(opt =>
-      `<option value="${opt}" ${invitee.food_choice === opt ? "selected" : ""}>${opt}</option>`
-    ).join("");
-}
-
-// Update RSVP object on change
-select.addEventListener("change", (e) => {
-  invitee.food_choice = e.target.value;
-});
+ let selectStarter = document.createElement("select");
 
 
+
+  if (invitee.isChild) {
+    selectStarter.innerHTML =
+      `<option value="">--Select a starter--</option>` +
+      childStarterOptions.map(opt =>
+        `<option value="${opt}" ${invitee.starter_choice === opt ? "selected" : ""}>${opt}</option>`
+      ).join("");
+  } else {
+    selectStarter.innerHTML =
+      `<option value="">--Select a starter--</option>` +
+      starterOptions.map(opt =>
+        `<option value="${opt}" ${invitee.starter_choice === opt ? "selected" : ""}>${opt}</option>`
+      ).join("");
+  }
+
+  // Update RSVP object on change
+  selectStarter.addEventListener("change", (e) => {
+    invitee.starter_choice = e.target.value;
+  });
 
   div.appendChild(label);
-  div.appendChild(select);
+
+     // menu dropdown
+  const starterlabel = document.createElement("label");
+  starterlabel.textContent = "Starter choice:";
+  div.appendChild(starterlabel);
+
+  div.appendChild(selectStarter);
+
+
+  //main
+  let selectMain = document.createElement("select");
+
+  if (invitee.isChild) {
+      selectMain.innerHTML =
+        `<option value="">--Select a main--</option>` +
+        childMainOptions.map(opt =>
+          `<option value="${opt}" ${invitee.main_choice === opt ? "selected" : ""}>${opt}</option>`
+        ).join("");
+    } else {
+      selectMain.innerHTML =
+        `<option value="">--Select a main--</option>` +
+        mainOptions.map(opt =>
+          `<option value="${opt}" ${invitee.main_choice === opt ? "selected" : ""}>${opt}</option>`
+        ).join("");
+    }
+
+    // Update RSVP object on change
+    selectMain.addEventListener("change", (e) => {
+      invitee.main_choice = e.target.value;
+    });
+
+      // menu dropdown
+    const mainLabel = document.createElement("label");
+    mainLabel.textContent = "Main choice:";
+    div.appendChild(mainLabel);
+    
+    div.appendChild(selectMain);
+
+  //dessert
+  let selectDessert = document.createElement("select");
+
+  if (invitee.isChild) {
+      selectDessert.innerHTML =
+        `<option value="">--Select a main--</option>` +
+        childDessertOptions.map(opt =>
+          `<option value="${opt}" ${invitee.dessert_choice === opt ? "selected" : ""}>${opt}</option>`
+        ).join("");
+    } else {
+      selectDessert.innerHTML =
+        `<option value="">--Select a main--</option>` +
+        dessertOptions.map(opt =>
+          `<option value="${opt}" ${invitee.dessert_choice === opt ? "selected" : ""}>${opt}</option>`
+        ).join("");
+    }
+
+    // Update RSVP object on change
+    selectDessert.addEventListener("change", (e) => {
+      invitee.dessert_choice = e.target.value;
+    });
+
+      // menu dropdown
+    const dessertLabel = document.createElement("label");
+    dessertLabel.textContent = "Dessert choice:";
+    div.appendChild(dessertLabel);
+    
+    div.appendChild(selectDessert);
 
   // Drink dropdown
   const drinkLabel = document.createElement("label");
-  drinkLabel.textContent = "Drink choice";
+  drinkLabel.textContent = "Drink choice:";
   div.appendChild(drinkLabel);
 
   if (invitee.isChild) {
