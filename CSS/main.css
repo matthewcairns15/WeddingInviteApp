@@ -28,26 +28,25 @@ body {
 }
 
 /* Wrapper for content */
+
 .page-wrapper {
-  position: relative;
-  width: 90%;
-  max-width: 1200px;
+  width: 95%;
+  max-width: 1000px;
+
   margin: 2rem auto;
-  padding: 15rem;
+
+  padding: clamp(2rem, 5vw, 6rem);
+
+  border: clamp(25px, 5vw, 60px) solid transparent;
+
+  border-image-source: url("../img/squiggle-border.png");
+  border-image-slice: 80 fill;
+  border-image-repeat: stretch;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-
-  box-sizing: border-box;
-
-  border: 80px solid transparent;
-  border-image-source: url("../img/squiggle-border.png");
-  border-image-slice: 80 fill;
-  border-image-repeat: stretch;
 }
-
 
 /* Full continuous squiggly border */
 .page-wrapper::before {
@@ -81,12 +80,27 @@ body {
 h1, h2, h3 {
   text-align: center;
   margin-bottom: 1.5rem;
-  color: white;
+  color: #4f6f34;
 }
 
 h1 {
-  font-size: 2.5vw; /* scales with viewport */
-  min-font-size: 1.5rem;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+}
+
+h2 {
+  font-family: "Great Vibes", cursive;
+  color: #2f5e2f;
+  margin: 0;
+  text-align: center;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+p {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #2f5e2f;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+
 }
 
 /* ==============================
@@ -219,11 +233,11 @@ pre {
 }
 
 .invite-content h1 {
-  font-size: 8vw; /* scales on screen */
   font-family: "Great Vibes", cursive;
   color: #2f5e2f;
   margin: 0;
   text-align: center;
+  font-size: clamp(2rem, 6vw, 4rem);
 }
 
 .icon {
@@ -343,12 +357,8 @@ pre {
     gap: 4%;
   }
 
-  .invite-content h1 {
-    font-size: 8vw;
-  }
-
   .icon {
-    width: 15vw;
+      width: clamp(40px, 8vw, 90px);
   }
 
   .swiper,

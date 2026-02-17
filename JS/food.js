@@ -99,13 +99,13 @@ attendingInvitees.forEach((invitee, index) => {
 
   if (invitee.isChild) {
       selectDessert.innerHTML =
-        `<option value="">--Select a main--</option>` +
+        `<option value="">--Select a desssert--</option>` +
         childDessertOptions.map(opt =>
           `<option value="${opt}" ${invitee.dessert_choice === opt ? "selected" : ""}>${opt}</option>`
         ).join("");
     } else {
       selectDessert.innerHTML =
-        `<option value="">--Select a main--</option>` +
+        `<option value="">--Select a desssert--</option>` +
         dessertOptions.map(opt =>
           `<option value="${opt}" ${invitee.dessert_choice === opt ? "selected" : ""}>${opt}</option>`
         ).join("");
