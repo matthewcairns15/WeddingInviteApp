@@ -184,18 +184,45 @@ attendingInvitees.forEach((invitee, index) => {
 
 // Submit button handler
 document.getElementById("submitFood").addEventListener("click", () => {
-  // Check all attending invitees have selected a menu
-  const unanswered = attendingInvitees.some(inv => !inv.food_choice);
-  if (unanswered) {
-    alert("Please select a menu for everyone attending.");
+
+  // remove previous highlights
+  document.querySelectorAll("select").forEach(s => s.classList.remove("select-error"));
+
+  let hasError = false;
+
+  attendingInvitees.forEach((inv, i) => {
+    const selects = container.children[i].querySelectorAll("select");
+
+    const [starterSel, mainSel, dessertSel, drinkSel] = selects;
+
+    if (!inv.starter_choice) {
+      starterSel.classList.add("select-error");
+      hasError = true;
+    }
+
+    if (!inv.main_choice) {
+      mainSel.classList.add("select-error");
+      hasError = true;
+    }
+
+    if (!inv.dessert_choice) {
+      dessertSel.classList.add("select-error");
+      hasError = true;
+    }
+
+    if (!inv.drink_choice) {
+      drinkSel.classList.add("select-error");
+      hasError = true;
+    }
+  });
+
+  if (hasError) {
+    alert("Please complete all menu selections.");
     return;
   }
 
-  // Update localStorage
   localStorage.setItem("weddingRSVP", JSON.stringify(savedRSVP));
   alert("Food choices saved!");
-
-  // Optionally redirect to a confirmation page
   goToPage("music.html");
 });
 

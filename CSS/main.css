@@ -22,6 +22,11 @@ body {
   padding: 2rem;
 }
 
+.select-error {
+  border: 2px solid red;
+  background-color: #ffe6e6;
+}
+
 /* Wrapper for content */
 .page-wrapper {
   position: relative;
