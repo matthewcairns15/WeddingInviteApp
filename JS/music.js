@@ -99,7 +99,7 @@ async function sendToDB() {
   if (deleteGuestsError) {
     console.error("Delete guests error:", deleteGuestsError);
     alert("Failed to update guests");
-    return;
+    return false;
   }
 
   // Reinsert guests
@@ -113,6 +113,7 @@ async function sendToDB() {
     Guest_Drink_Choice: inv.drink_choice,
     Guest_Dietry_Restrictions: inv.dietary_restrictions,
     Guest_Allergies: inv.allergies,
+    Is_Child: inv.isChild,
     Guest_Notes: inv.notes
   }));
 
@@ -124,7 +125,7 @@ async function sendToDB() {
     if (insertGuestsError) {
       console.error("Insert guests error:", insertGuestsError);
       alert("Failed to save guests");
-      return;
+      return false;
     }
   }
 
@@ -141,7 +142,7 @@ async function sendToDB() {
   if (deleteMusicError) {
     console.error("Delete music error:", deleteMusicError);
     alert("Failed to update music");
-    return;
+    return false;
   }
 
   // Reinsert music
@@ -158,18 +159,44 @@ async function sendToDB() {
     if (insertMusicError) {
       console.error("Insert music error:", insertMusicError);
       alert("Failed to save music");
-      return;
+      return false;
     }
   }
 
   console.log("✅ RSVP updated successfully!");
+  return true;
 }
 
-document.getElementById("btnFinish").addEventListener("click", () => {
-    //Push options to the Database
-  sendToDB();
+document.getElementById("btnFinish").addEventListener("click", async () => {
+ 
+  const button = document.getElementById("btnFinish");
+  const btnText = document.getElementById("btnText");
+  const spinner = document.getElementById("btnSpinner");
+
+  // Disable + show spinner
+  button.disabled = true;
+  btnText.textContent = "Saving...";
+  spinner.classList.remove("hidden");
+ 
+  //Push options to the Database
+  const success = await sendToDB();
+
+  if (!success) {
+    alert("Something went wrong saving your RSVP. Please try again.");
+
+    // Restore button
+    button.disabled = false;
+    btnText.textContent = "Finish";
+    spinner.classList.add("hidden");
+    return;
+  }
   // Optionally redirect to a confirmation page
-  goToPage("hotel.html");
+  btnText.textContent = "Saved ✓";
+  spinner.classList.add("hidden");
+
+  setTimeout(() => {
+    goToPage("hotel.html");
+  }, 800);
 });
 
 function goToPage(page) {
