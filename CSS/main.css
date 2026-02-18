@@ -9,9 +9,10 @@
 }
 
 :root {
-  --primary-colour: #ffe6e6; 
+  --primary-colour: #F7F2E6; 
   --secondary-colour: #2f5e2f; 
-  --accent-colour: #4f6f34; 
+  --accent-colour: #800020 ; 
+
 }
 
 
@@ -20,7 +21,7 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 1rem;
   color: white;
-  background-color: #3f6b2f;
+  background-color: var(--primary-colour);
   width: auto;
   align-items: center;
   justify-content: flex-start;
@@ -34,7 +35,7 @@ body {
 
 .select-error {
   border: 2px solid red;
-  background-color: var(--secondary-colour);;
+  background-color: var(--secondary-colour);
 }
 
 /* Wrapper for content */
@@ -45,7 +46,7 @@ body {
 
   margin: 2rem auto;
 
-  padding: clamp(2rem, 5vw, 6rem);
+  padding: clamp(5rem, 5vw, 12rem);
 
   border: clamp(25px, 5vw, 60px) solid transparent;
 
@@ -72,7 +73,6 @@ body {
   pointer-events: none;
   z-index: 2;
 
-  /* Inline SVG for single smooth squiggly border */
   background-repeat: no-repeat;
   background-size: 100% 100%; /* stretch to fill wrapper */
   border-radius: 16px;
@@ -104,7 +104,7 @@ h1 {
 
 h2 {
   font-family: "Great Vibes", cursive;
-  color: var(--primary-colour);;
+  color: var(--primary-colour);
   margin: 0;
   text-align: center;
   font-size: clamp(2.5rem, 6vw, 4.5rem);
@@ -113,7 +113,7 @@ h2 {
 p {
   text-align: center;
   margin-bottom: 1.5rem;
-  color: var(--primary-colour);;
+  color: var(--primary-colour);
   font-size: clamp(1.5rem, 4vw, 3rem);
 
 }
@@ -143,7 +143,7 @@ input[type="text"], input[type="email"], select, textarea {
   padding: 0.75rem;
   margin-bottom: 1.5rem;
   border-radius: 0.5rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--accent-colour);
   font-size: 1rem;
 }
 
@@ -152,14 +152,14 @@ button {
   font-size: 1rem;
   border-radius: 0.5rem;
   border: none;
-  background: var(--secondary-colour);;
-  color: white;
+  background: var(--secondary-colour);
+  color: var(--accent-colour);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 button:hover {
-  background: #d0c2a9;
+  background: var(--secondary-colour);
   transform: translateY(-2px);
 }
 
@@ -321,6 +321,7 @@ pre {
 
 .invitee label {
   align-self: flex-start;
+  color: var(--accent-colour);
 }
 
 .invitee select,
@@ -396,24 +397,31 @@ pre {
     padding: 0.6rem;
   }
 
-  .page-wrapper{
-    position: relative;
-    padding: 2rem 1.5rem;
-    border-width: 25px;
-    margin-bottom: 1rem;
-  }
-
   body {
     padding: 1rem 1rem 0 1rem;
     padding-bottom: 0.75rem;
   }
 
   .page-wrapper {
+
+    width: 95%;
+    max-width: 1000px;
+    margin: 2rem auto;
     margin-bottom: 0;
     position: relative;
-    padding: 2rem 1.5rem;
     border-width: 25px;
     margin-bottom: 1rem;
+    padding: clamp(12rem, 5vw, 20rem);
+    border: clamp(25px, 5vw, 60px) solid transparent;
+    border-image-source: url("../img/squiggle-border-inverted.png");
+    border-image-slice: 80 fill;
+    border-image-repeat: stretch;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    flex: 1; 
   }
 
   .swiper,
