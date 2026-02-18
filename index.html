@@ -49,8 +49,11 @@
           <div class="invite-content">
             <h1>RSVP</h1>
             <div id="invitee-names"></div>
-            <button id="submitRSVP">Submit</button>
-            <script src="./JS/index.js"></script>
+            <button id="submitRSVP">
+              <span id="btnText">Submit</span>
+              <span id="btnSpinner" class="hidden"></span>
+              <span aria-hidden="true"></span>
+            </button>
           </div>
         </div>
 
@@ -64,5 +67,6 @@
 
       </div>
     </div>
+    <script src="./JS/index.js"></script>
   </body>
 </html>

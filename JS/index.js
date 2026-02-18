@@ -52,8 +52,7 @@ let rsvp;
   renderInvitees();
 })();
 
-  // Attach submit button handler
-  document.getElementById("submitRSVP").addEventListener("click", submitRSVP);
+
 
 
 // ===== Render Invitees Dynamically =====
@@ -95,7 +94,9 @@ function saveRSVP() {
 }
 
 // ===== Submit Handler =====
-function submitRSVP() {
+  // Attach submit button handler
+  document.getElementById("submitRSVP").addEventListener("click", async () => {
+  
   // Ensure all invitees have selected attendance
   const unanswered = rsvp.invitees.some(inv => inv.attending === null);
 
@@ -109,16 +110,109 @@ function submitRSVP() {
   // If all are not attending → redirect to 'Not attending' page
   const allNotAttending = rsvp.invitees.every(inv => inv.attending === false);
 
+  const button = document.getElementById("submitRSVP");
+  const btnText = document.getElementById("btnText");
+  const spinner = document.getElementById("btnSpinner");
+
+  // Disable + show spinner
+  button.disabled = true;
+  btnText.textContent = "Saving...";
+  spinner.classList.remove("hidden");
+ 
+  //Push options to the Database
+  const success = await sendToDB();
+
+  if (!success) {
+    alert("Something went wrong saving your RSVP. Please try again.");
+
+    // Restore button
+    button.disabled = false;
+    btnText.textContent = "Finish";
+    spinner.classList.add("hidden");
+    return;
+  }
+  // Optionally redirect to a confirmation page
+  btnText.textContent = "Saved ✓";
+  spinner.classList.add("hidden");
+
+  setTimeout(() => {
+    goToPage("hotel.html");
+  }, 800);
+
+
   // usage
   if (allNotAttending) {
     goToPage("not-attending.html");
   } else {
     goToPage("food.html");
   }
-}
+});
 
 function goToPage(page) {
   window.location.href = `/WeddingInviteApp/${page}`;
+}
+
+async function sendToDB() {
+
+  const supabaseUrl = "https://wkdgilnczddiyibwmlyz.supabase.co";
+  const supabaseAnonKey  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndrZGdpbG5jemRkaXlpYndtbHl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg4MTc2NjIsImV4cCI6MjA4NDM5MzY2Mn0.pL05Ugw56GiOKROtu0Az4te0qwc0SD6D5bZJVd8YmHQ";
+
+  const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
+
+  const rsvp = JSON.parse(localStorage.getItem("weddingRSVP"));
+
+  if (!rsvp || !rsvp.rsvp_id) {
+    alert("RSVP ID missing — cannot save");
+    return;
+  }
+
+  const rsvpId = rsvp.rsvp_id;
+
+  /* ===========================
+     1️⃣ UPDATE GUEST OPTIONS
+     =========================== */
+
+  // Delete existing guests for this RSVP
+  const { error: deleteGuestsError } = await supabaseClient
+    .from("Wedding_Guest_Options")
+    .delete()
+    .eq("rsvp_id", rsvpId);
+
+  if (deleteGuestsError) {
+    console.error("Delete guests error:", deleteGuestsError);
+    alert("Failed to update guests");
+    return false;
+  }
+
+  // Reinsert guests
+  const guestsPayload = rsvp.invitees.map(inv => ({
+    rsvp_id: rsvpId,
+    Guest_Name: inv.name,
+    Guest_Attending: inv.attending,
+    Guest_Starter_Choice: inv.starter_choice,
+    Guest_Main_Choice: inv.main_choice,
+    Guest_Dessert_Choice: inv.dessert_choice,
+    Guest_Drink_Choice: inv.drink_choice,
+    Guest_Dietry_Restrictions: inv.dietary_restrictions,
+    Guest_Allergies: inv.allergies,
+    Is_Child: inv.isChild,
+    Guest_Notes: inv.notes
+  }));
+
+  if (guestsPayload.length > 0) {
+    const { error: insertGuestsError } = await supabaseClient
+      .from("Wedding_Guest_Options")
+      .insert(guestsPayload);
+
+    if (insertGuestsError) {
+      console.error("Insert guests error:", insertGuestsError);
+      alert("Failed to save guests");
+      return false;
+    }
+  }
+
+  console.log("✅ RSVP updated successfully!");
+  return true;
 }
 
 async function get_invite_code()
