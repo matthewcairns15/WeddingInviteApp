@@ -12,14 +12,15 @@ body {
   font-size: 1rem;
   color: white;
   background-color: #3f6b2f;
-  width: 100%;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
+  width: auto;
   align-items: center;
   justify-content: flex-start;
 
-  padding: 2rem;
+  padding: 2rem 2rem 0 2rem;   /* no bottom padding */
+  min-height: 100vh;
+  display: flex; 
+  flex-direction: column;
+
 }
 
 .select-error {
@@ -46,6 +47,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  
+  flex: 1; 
+
 }
 
 /* Full continuous squiggly border */
@@ -65,14 +69,16 @@ body {
   border-radius: 16px;
 }
 
+.page-wrapper > *:last-child {
+  margin-bottom: 0 !important;
+}
+
 .page-border {
   display: block;
   width: 90%;
   max-width: 1200px;
   margin: 2rem auto;
 }
-
-
 
 /* ==============================
    Headings
@@ -102,6 +108,11 @@ p {
   font-size: clamp(1.5rem, 4vw, 3rem);
 
 }
+
+ .icon {
+    width: clamp(100px, 12vw, 200px);
+    height: auto;
+  }
 
 /* ==============================
    Form Elements (RSVP & Menu)
@@ -209,6 +220,7 @@ pre {
   gap: 5%;
   border-radius: 16px;
   background: rgba(255,255,255,0.05);
+  margin-bottom:0;
 }
 
 .invite-card::before {
@@ -240,9 +252,7 @@ pre {
   font-size: clamp(2rem, 6vw, 4rem);
 }
 
-.icon {
-  width: 12vw;
-}
+
 
 /* ==============================
    Menu Swiper
@@ -289,6 +299,7 @@ pre {
   padding: 2%;
   background: #4f6f34;
   border-radius: 12px;
+  margin-bottom:0;
 }
 
 .invitee {
@@ -331,13 +342,18 @@ pre {
 /* ==============================
    Mobile Responsiveness
    ============================== */
-@media (max-width: 768px) {
-  body {
-    padding: 1.5rem;
-  }
+
+/*Large Phones*/   
+@media (max-width: 1200px) {
+
+  /* .invite-card {
+    flex-direction: column;
+    padding: 5%;
+    gap: 4%;
+  }*/
 
   h1 {
-    font-size: 6vw;
+    font-size: 10vw;
   }
 
   input[type="text"], input[type="email"], select, textarea, button, pre {
@@ -345,20 +361,24 @@ pre {
     padding: 0.6rem;
   }
 
-  .map-container {
-    padding-bottom: 60%;
-  }
-}
-
-@media (max-width: 600px) {
-  .invite-card {
-    flex-direction: column;
-    padding: 5%;
-    gap: 4%;
+  .page-wrapper{
+    position: relative;
+    padding: 2rem 1.5rem;
+    border-width: 25px;
+    margin-bottom: 1rem;
   }
 
-  .icon {
-      width: clamp(40px, 8vw, 90px);
+  body {
+    padding: 1rem 1rem 0 1rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .page-wrapper {
+    margin-bottom: 0;
+    position: relative;
+    padding: 2rem 1.5rem;
+    border-width: 25px;
+    margin-bottom: 1rem;
   }
 
   .swiper,
@@ -370,16 +390,6 @@ pre {
   button {
     width: 100%;
   }
-}
-
-@media (max-width: 480px) {
-  body {
-    padding: 1rem;
-  }
-
-  h1 {
-    font-size: 10vw;
-  }
 
   input[type="text"], input[type="email"], select, textarea, button, pre {
     font-size: 0.9rem;
@@ -390,4 +400,10 @@ pre {
     padding-bottom: 65%;
     border-radius: 0.5rem;
   }
+
+  .icon{
+    width: clamp(8vw, 12vw, 400px);
+    height: auto;
+  }
+
 }

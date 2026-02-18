@@ -1,52 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <!-- Add this at the top of your index.html -->
-  <script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-    window.supabase = { createClient }; // make it globally accessible
-  </script>
-
-  <!--Supabase SDK -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <!--Init Supabase-->
-  <script src="supabase.js"></script> 
-
   <head>
     <meta charset="UTF-8">
-    <title>Wedding RSVP</title>
-
-      <link
+    <title>Hotel & Location</title>
+    <link
     rel="stylesheet"
       href="./CSS/main.css"
       />
-
-    <style>
-      .invitee { margin-bottom: 10px; }
-      label { margin-right: 10px; font-weight: bold; }
-    </style>
   </head>
   <body>
     <div class="page-wrapper">
 
-      <div id="inviteesContainer">
+      <H1>Strathaven Hotel, ML10 6NY</H1> 
+      <p style="text-align:center;">
+        Hotel location, please use the following postcode to navigate to the hotel:<br>
+        <strong>ML10 6NY</strong>
+      </p>
 
-        <div class="invite-card">
-          <div class="invite-left">
-            <img src="img/doves.png" class="icon">
-            <img src="img/cake.png" class="icon">
-            <img src="img/glasses.png" class="icon">
-          </div>
-
-          <div class="invite-content">
-            <h1>We're Sorry that you cannot make it to our Wedding.</h1>
-            <h1>Matt + Paida would have loved to have seen you there</h1>
-            <p>31.12.2027</p>
-            <p>Strathaven Hotel</p>
-          </div>
-        </div>
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps?q=ML10%206NY&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen>
+        </iframe>
       </div>
+
+      <p style="text-align:center;">
+        Hotel rooms are available, if one is required contact Strathaven Hotel ASAP to reserve a room for 31/12/2027<br>
+      </p>
+
     </div>
   </body>
 </html>
+
