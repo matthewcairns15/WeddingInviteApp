@@ -1,11 +1,20 @@
 /* ==============================
    Global Styles
    ============================== */
-* {
+
+*{
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
+:root {
+  --primary-colour: #ffe6e6; 
+  --secondary-colour: #2f5e2f; 
+  --accent-colour: #4f6f34; 
+}
+
+
 
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -25,7 +34,7 @@ body {
 
 .select-error {
   border: 2px solid red;
-  background-color: #ffe6e6;
+  background-color: var(--secondary-colour);;
 }
 
 /* Wrapper for content */
@@ -40,7 +49,7 @@ body {
 
   border: clamp(25px, 5vw, 60px) solid transparent;
 
-  border-image-source: url("../img/squiggle-border.png");
+  border-image-source: url("../img/squiggle-border-inverted.png");
   border-image-slice: 80 fill;
   border-image-repeat: stretch;
 
@@ -86,7 +95,7 @@ body {
 h1, h2, h3 {
   text-align: center;
   margin-bottom: 1.5rem;
-  color: #4f6f34;
+  color: var(--secondary-colour);;
 }
 
 h1 {
@@ -95,7 +104,7 @@ h1 {
 
 h2 {
   font-family: "Great Vibes", cursive;
-  color: #2f5e2f;
+  color: var(--primary-colour);;
   margin: 0;
   text-align: center;
   font-size: clamp(2.5rem, 6vw, 4.5rem);
@@ -104,7 +113,7 @@ h2 {
 p {
   text-align: center;
   margin-bottom: 1.5rem;
-  color: #2f5e2f;
+  color: var(--primary-colour);;
   font-size: clamp(1.5rem, 4vw, 3rem);
 
 }
@@ -143,7 +152,7 @@ button {
   font-size: 1rem;
   border-radius: 0.5rem;
   border: none;
-  background: #E8DCC7;
+  background: var(--secondary-colour);;
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -246,7 +255,7 @@ pre {
 
 .invite-content h1 {
   font-family: "Great Vibes", cursive;
-  color: #2f5e2f;
+  color: var(--primary-colour);;
   margin: 0;
   text-align: center;
   font-size: clamp(2rem, 6vw, 4rem);
@@ -266,7 +275,7 @@ pre {
 .swiper-slide {
   text-align: center;
   font-size: 1rem;
-  background: #E8DCC7;
+  background: var(--secondary-colour);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -297,7 +306,7 @@ pre {
   max-width: 600px;
   margin-top: 2rem;
   padding: 2%;
-  background: #4f6f34;
+  background: var(--primary-colour);;
   border-radius: 12px;
   margin-bottom:0;
 }
@@ -328,7 +337,7 @@ pre {
   padding: 0.75rem 2rem;
   border-radius: 0.5rem;
   border: none;
-  background: #2f5e2f;
+  background: var(--primary-colour);;
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -339,6 +348,32 @@ pre {
   background: #26522a;
 }
 
+/* For Tall screens i.e. mobiles */
+.bottom-decor {
+  display: none;
+  width: 100%;          /* full width so it stays centered */
+  margin-top: auto;     /* pushes it to the bottom */
+  padding: 0rem 0;
+  justify-content: center;
+  gap: 0.5rem;
+  opacity: 0.8;
+}
+
+.bottom-decor img {
+  width: 100%;
+  max-width: 600px;     /* keeps the photo from blowing up */
+  height: auto;
+  border-radius: 12px;  /* optional: makes it look nicer */
+}
+
+
+@media (max-width: 1000px) and (min-height: 750px) {
+  .bottom-decor {
+    display: flex;
+  }
+}
+
+
 /* ==============================
    Mobile Responsiveness
    ============================== */
@@ -346,11 +381,11 @@ pre {
 /*Large Phones*/   
 @media (max-width: 1200px) {
 
-  /* .invite-card {
-    flex-direction: column;
+   .invite-card {
+    margin-top: 5rem;
     padding: 5%;
     gap: 4%;
-  }*/
+  }
 
   h1 {
     font-size: 10vw;
