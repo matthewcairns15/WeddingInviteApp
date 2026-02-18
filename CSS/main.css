@@ -43,14 +43,14 @@ body {
 .page-wrapper {
   width: 95%;
   max-width: 1000px;
-
+  position: relative;
   margin: 2rem auto;
 
-  padding: clamp(5rem, 5vw, 12rem);
+  padding: clamp(5rem, 5vw, 3rem);
 
   border: clamp(25px, 5vw, 60px) solid transparent;
 
-  border-image-source: url("../img/squiggle-border-inverted.png");
+  border-image-source: url("../img/squiggle-border-inverted-2.png");
   border-image-slice: 80 fill;
   border-image-repeat: stretch;
 
@@ -108,6 +108,10 @@ h2 {
   margin: 0;
   text-align: center;
   font-size: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+swiper-wrapper{
+    margin: 1.5rem;
 }
 
 p {
@@ -269,7 +273,6 @@ pre {
 .swiper {
   width: 90%;
   max-width: 600px;
-  margin-top: 2rem;
 }
 
 .swiper-slide {
@@ -279,7 +282,6 @@ pre {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 12px;
 }
 
 .swiper-slide img {
@@ -374,6 +376,9 @@ pre {
   }
 }
 
+  .mySwiper{
+    margin-top: 12rem;
+  }
 
 /* ==============================
    Mobile Responsiveness
@@ -400,6 +405,9 @@ pre {
   body {
     padding: 1rem 1rem 0 1rem;
     padding-bottom: 0.75rem;
+       border-image-source: url("../img/squiggle-border-inverted-2.png");
+    border-image-slice: 40 fill;
+    border-image-repeat: stretch;
   }
 
   .page-wrapper {
@@ -408,14 +416,13 @@ pre {
     max-width: 1000px;
     margin: 2rem auto;
     margin-bottom: 0;
+    margin-top: 0;
+
     position: relative;
     border-width: 25px;
-    margin-bottom: 1rem;
-    padding: clamp(12rem, 5vw, 20rem);
+    padding: clamp(2rem, 2rem, 1rem);
     border: clamp(25px, 5vw, 60px) solid transparent;
-    border-image-source: url("../img/squiggle-border-inverted.png");
-    border-image-slice: 80 fill;
-    border-image-repeat: stretch;
+ 
 
     display: flex;
     flex-direction: column;
@@ -429,6 +436,13 @@ pre {
   .map-container {
     width: 95%;
   }
+
+
+
+  .food-wrapper{
+    margin-bottom: 4.5rem;
+  }
+
 
   button {
     width: 100%;
