@@ -44,8 +44,21 @@ body {
 
 /* Wrapper for content */
 
+@media (min-width: 1200px) {
+  .page-wrapper {
+    padding: 2rem;
+    border-width: 20px;
+  }
+
+  .invite-card {
+    width: 100%;
+    max-width: 1200px;
+  }
+}
+
+
 .page-wrapper {
-  width: 95%;
+  width: 1600px;
   
   position: relative;
   margin: 0rem auto;
@@ -222,8 +235,8 @@ pre {
    ============================== */
 .invite-card {
   position: relative;
-  width: 90%;
-  /*max-width: 600px;*/
+  width: 100;
+  max-width: 1600px;
   margin: 2rem 0;
   padding: 5%;
   display: flex;
