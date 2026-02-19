@@ -441,13 +441,10 @@ pre {
   .page-wrapper {
 
     width: 100%; 
-    max-width: 1800px; /* or 2000px if you want it huge */ 
-    margin: 0 auto;
-    margin-bottom: 0;
-    margin-top: 0;
-    margin-left: 0;
-    margin-right: 0;
-    padding: 0;
+    max-width: 2200px; /* or 2000px if you want it huge */ 
+    margin: 0 auto; 
+    padding: clamp(3rem, 4vw, 6rem); 
+    border: clamp(20px, 4vw, 60px) solid transparent;
     position: relative;
     border-width: 0px;
     /*padding: clamp(0rem, 2rem, 1rem);
