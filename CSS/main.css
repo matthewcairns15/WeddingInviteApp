@@ -225,7 +225,7 @@ pre {
    ============================== */
 
 
-[class~="inviteesContainer"] {
+.inviteesContainer {
   position: relative;
   width: 100%;
   min-height: 100vh;
@@ -276,7 +276,7 @@ pre {
   color: var(--primary-colour);;
   margin: 0;
   text-align: center;
-  font-size: clamp(2rem, 6vw, 4rem);
+  font-size: clamp(8rem, 16vw, 8rem);
 }
 
 
