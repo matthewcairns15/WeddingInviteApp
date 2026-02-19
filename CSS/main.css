@@ -20,11 +20,20 @@ html {
   transform-origin: top left;
 }
 
+head
+{
+   color: var(--primary-colour);
+}
+
+title
+{
+   color: var(--primary-colour);
+}
 
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 1rem;
-  color: white;
+  color: var(--primary-colour);
   background-color: var(--primary-colour);
   width: auto;
   align-items: center;
@@ -98,7 +107,7 @@ body {
 h1, h2, h3 {
   text-align: center;
   margin-bottom: 1.5rem;
-  color: var(--secondary-colour);;
+  color: var(--primary-colour);
 }
 
 h1 {
@@ -126,7 +135,7 @@ p {
 }
 
  .icon {
-    width: clamp(100px, 12vw, 200px);
+    width: clamp(10rem, 25vw, 20rem);
     height: auto;
   }
 
@@ -273,7 +282,7 @@ pre {
 
 .invite-content h1 {
   font-family: "Great Vibes", cursive;
-  color: var(--primary-colour);;
+  color: var(--primary-colour);
   margin: 0;
   text-align: center;
   font-size: clamp(8rem, 16vw, 8rem);
@@ -327,7 +336,7 @@ pre {
   margin-top: 2rem;
   margin-bottom: 25rem;
   padding: 2%;
-  background: var(--primary-colour);;
+  background: var(--primary-colour);
   border-radius: 12px;
   margin-bottom:16rem;
 }
