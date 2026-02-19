@@ -235,8 +235,8 @@ pre {
    ============================== */
 .invite-card {
   position: relative;
-  width: 100;
-  max-width: 1600px;
+  width: 100%;
+  height: 100%;
   margin: 2rem 0;
   padding: 5%;
   display: flex;
