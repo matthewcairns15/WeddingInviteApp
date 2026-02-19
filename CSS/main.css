@@ -15,6 +15,10 @@
 
 }
 
+html {
+  transform: scale(1);
+  transform-origin: top left;
+}
 
 
 body {
@@ -42,28 +46,14 @@ body {
   background-color: var(--secondary-colour);
 }
 
-/* Wrapper for content */
-
-@media (min-width: 1200px) {
-  .page-wrapper {
-    padding: 2rem;
-    border-width: 20px;
-  }
-
-  .invite-card {
-    width: 100%;
-    max-width: 1200px;
-  }
-}
-
 
 .page-wrapper {
-  width: 1600px;
-  
+  width: 100%;
+  max-width: 2200px;
   position: relative;
   margin: 0rem auto;
 
-  padding: clamp(5rem, 5vw, 3rem);
+  padding: clamp(3rem, 5vw, 5rem);
 
   border: clamp(25px, 5vw, 60px) solid transparent;
 
