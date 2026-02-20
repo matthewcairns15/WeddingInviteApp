@@ -18,23 +18,34 @@
   </head>
   <body>
     <div class="page-wrapper">
+      <div class="music-wrapper">
+        <h1>Music Requests</h1>
 
-      <h1>Music Requests</h1>
+        <label for="songInput"><h2>Enter your song request + Artist (optional):</h2></label>
+        <input type="text" id="songInput" placeholder="Song name or artist">
 
-      <label for="songInput">Enter your song request + Artist (optional):</label>
-      <input type="text" id="songInput" placeholder="Song name or artist">
+        <button id="submitMusic">Add Song</button>
 
-      <button id="submitMusic">Add Song</button>
+        <h2>Current RSVP Data:</h2>
+        <pre id="rsvpDisplay">{}</pre>
 
-      <h2>Current RSVP Data:</h2>
-      <pre id="rsvpDisplay">{}</pre>
+        <button id="btnFinish">
+          <span id="btnText">Finish and Submit Options</span>
+          <span id="btnSpinner" class="spinner hidden"></span>
+        </button>
+      </div>
 
-      <button id="btnFinish">
-         <span id="btnText">Finish and Submit Options</span>
-         <span id="btnSpinner" class="spinner hidden"></span>
-      </button>
+    </div>
 
-      <script src="./JS/music.js"></script>
+    <div class="bottom-decor">
+      <img src="img/Strathaven-Hotel-1.png" alt="">
+    </div>
+
+    <div class="bottom-decor">
+      <img src="img/Strathaven-Hotel-1.png" alt="">
     </div>
   </body>
+  
+  <script src="./JS/music.js"></script>
+
 </html>
