@@ -176,6 +176,7 @@ button {
   color: var(--primary-colour);
   cursor: pointer;
   transition: all 0.3s ease;
+  
 }
 
 button:hover {
@@ -357,19 +358,20 @@ pre {
 }
 
 .food-wrapper button {
-  width: 100%;
+  width: 30%; /* or remove width entirely */
   padding: 0.5rem;
   border-radius: 6px;
   margin-top: 2rem;
   margin-bottom: 25rem;
   padding: 2%;
- 
-  align-items: center;
-
   background: var(--accent-colour);
   color: var(--primary-colour);
   border-radius: 12px;
   margin-bottom:10rem;
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  margin: 2rem auto 10rem auto; /* auto horizontally centers it */
 }
 
 .invitee {
