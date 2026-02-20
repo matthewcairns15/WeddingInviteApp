@@ -384,6 +384,7 @@ pre {
 
 .invitee label {
   align-self: center;
+  font-size: 2rem;
   color: var(--accent-colour);
   justify-content: center;
   display: flex;

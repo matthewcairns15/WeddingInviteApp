@@ -135,16 +135,18 @@ function saveRSVP() {
   btnText.textContent = "Saved ✓";
   spinner.classList.add("hidden");
 
-  setTimeout(() => {
-    goToPage("hotel.html");
-  }, 800);
+
 
 
   // usage
   if (allNotAttending) {
-    goToPage("not-attending.html");
-  } else {
+   setTimeout(() => {
     goToPage("food.html");
+    }, 800);
+  } else {
+    setTimeout(() => {
+      goToPage("not-attending.html");
+    }, 800);
   }
 });
 
