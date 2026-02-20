@@ -52,7 +52,7 @@ body {
 
 .select-error {
   border: 2px solid red;
-  background-color: var(--secondary-colour);
+  background-color: var(--accent-colour-colour);
 }
 
 
