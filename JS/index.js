@@ -135,9 +135,6 @@ function saveRSVP() {
   btnText.textContent = "Saved ✓";
   spinner.classList.add("hidden");
 
-
-
-
   // usage
   if (allNotAttending) {
    setTimeout(() => {
